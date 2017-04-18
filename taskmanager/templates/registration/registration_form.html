@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Registration</h1>
+<form method="post" action="" class="form-horizontal">
+<dl class="register">
+{% for field in form %}
+    {% csrf_token %}
+    <dt>{{ field.label_tag }}</dt>
+    <dd class="clearfix">{{ field }}
+    {% if field.help_text %}<div class="clearfix">{{ field.help_text }}</div>{% endif %}
+    {% if field.errors %}<div class="myerrors clearfix">{{ field.errors }}</div>{% endif %}
+    </dd>
+{% endfor %}
+</dl>
+<input type="submit" value="Sign Up" class="clearfix btn btn-success">
+</form>
+{% endblock %}

@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Tasks List</h2>
+{% if latest_tasks_list %}
+    <div>
+        {% if is_not_done == '0' or is_not_done == 0 %}
+            <a href="?is_not_done=1" class="btn btn-success">Hide Completed tasks</a>
+        {% else %}
+            <a href="?is_not_done=0" class="btn btn-info">Show All tasks</a>
+        {% endif %}
+    </div>
+    <hr/>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Status</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Owner</th>
+            <th>Date Created</th>
+            <th>Date Updated</th>
+            <th>Action</th>
+            <th>Mark Done</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for task in latest_tasks_list %}
+        <tr>
+            <td>
+                {% if task.status == 1 %}
+                    <span class="glyphicon glyphicon-check"></span> Done
+                {% else %}
+                    <span class="glyphicon glyphicon-remove-sign"></span> Active
+                {% endif %}
+            </td>
+            <td>
+                {{ task.name }}
+            </td>
+            <td>
+                {{ task.desc }}
+            </td>
+            <td>
+                {{ task.owner}}
+            </td>
+            <td>
+                {{ task.created_at}}
+            </td>
+            <td>
+                {{ task.updated_at}}
+            </td>
+            <td>
+                {% if user.id == task.owner.id %}
+                    <a href="/tasks/{{ task.id }}/">View</a> | <a href="/tasks/{{ task.id }}/update/">Update</a> | <a href="/tasks/{{ task.id }}/delete/">Delete</a>
+                {% else %}
+                    <a href="/tasks/{{ task.id }}/">View</a>
+                {% endif %}
+            </td>
+            <td>
+                {% if task.done %}
+                    {% if task.owner == user or task.done.how_is_done == user%}
+                        <a href="/tasks/{{ task.id }}/undone/" class="btn btn-success">Mark Undone</a>
+                    {% else %}
+                        Done by {{ task.done.how_is_done }}
+                    {% endif %}
+                {% else %}
+                    <a href="/tasks/{{ task.id }}/done/" class="btn btn-success">Mark Done</a>
+                {% endif %}
+            </td>
+        </tr>
+
+        {% endfor %}
+        </tbody>
+    </table>
+    {% if is_paginated %}
+        <ul class="pagination">
+        {% if page_obj.has_previous %}
+            <li>
+                <span><a href="?page={{ page_obj.previous_page_number }}&is_not_done={{ is_not_done }}">Previous</a></span>
+            </li>
+        {% endif %}
+            <li>
+                <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</span>
+            </li>
+        {% if page_obj.has_next %}
+            <li>
+                <span><a href="?page={{ page_obj.next_page_number }}&is_not_done={{ is_not_done }}">Next</a></span>
+            </li>
+        {% endif %}
+        </ul>
+    {% endif %}
+
+
+{% else %}
+    <p>No tasks are available.</p>
+{% endif %}
+{% endblock %}

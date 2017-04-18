@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-header">
+    <ol class="breadcrumb">
+        <li><a href="/tasks/">All Tasks</a></li>
+        <li class="active">{{ task.name }}</li>
+    </ol>
+</div>
+    <h2>Update Task - {{task.name}}</h2>
+    <form method="post" action="." class="form-horizontal">{% csrf_token %}
+        <table border="0">
+            {{ form.as_table }}
+            <tr>
+                <td></td>
+                <td><input type="submit" class="btn btn-success" value="Update" /></td>
+            </tr>
+        </table>
+    </form>
+{% endblock %}

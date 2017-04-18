@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Activation</h1>
+
+Hello, {{ account }}!<br/>
+Your account is activated. <a href="{% url 'auth_login' %}">Go to the site</a>.
+<br/><br/>
+{% endblock %}

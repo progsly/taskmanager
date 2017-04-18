@@ -1,0 +1,6 @@
+.vagrant/
+.pip
+.cache
+.idea
+*.pyc
+.bash_history

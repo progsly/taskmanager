@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-header">
+    <ol class="breadcrumb">
+        <li><a href="/tasks/">All Tasks</a></li>
+        <li class="active">Delete - {{ task.name }}</li>
+    </ol>
+</div>
+    <h2>Delete - {{ task.name }}</h2>
+    <form method="post" action=".">{% csrf_token %}
+        <p>Are you sure you want to delete the item?</p>
+        <input class="btn btn-primary" type="submit" value="Confirm"/>
+        <button onclick="window.history.back();" class="btn btn-default" type="button">Cancel</button>
+    </form>
+{% endblock %}
