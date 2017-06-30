@@ -12,7 +12,7 @@ $ vagrant ssh
 ```
 Password - *vagrant*
 
-###Run smtp server
+### Run smtp server
 ```bash
 $ python -m smtpd -n -c DebuggingServer localhost:1025
 ```
